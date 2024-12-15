@@ -8,6 +8,7 @@
     <file>yt.ico</file>
   </qresource>
   <qresource prefix="ui_icons">
+    <file>stop-button.png</file>
     <file>adjust.png</file>
     <file>audio.png</file>
     <file>back.png</file>
