@@ -1,0 +1,40 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>976598-appliances-case-computer-computer-tower-desktop-pc_106551.ico</file>
+    <file>box.ico</file>
+    <file>dropbox.ico</file>
+    <file>gdrive.ico</file>
+    <file>onedrive.ico</file>
+    <file>yt.ico</file>
+  </qresource>
+  <qresource prefix="ui_icons">
+    <file>adjust.png</file>
+    <file>audio.png</file>
+    <file>back.png</file>
+    <file>eq.png</file>
+    <file>fast-forward.png</file>
+    <file>high-volume.png</file>
+    <file>low-volume.png</file>
+    <file>next.png</file>
+    <file>pause.png</file>
+    <file>play.png</file>
+    <file>playlist (1).png</file>
+    <file>playlist.png</file>
+    <file>repeat.png</file>
+    <file>repeat-once.png</file>
+    <file>shuffle.png</file>
+    <file>silent.png</file>
+    <file>undo (1).png</file>
+    <file>video.png</file>
+    <file>video-player.png</file>
+    <file>volume-down.png</file>
+    <file>volume-up.png</file>
+    <file>recent_icon_148510.ico</file>
+    <file>player.png</file>
+    <file>legal-hammer_icon-icons.com_73516.ico</file>
+    <file>4213426-about-description-help-info-information-notification_115427.ico</file>
+    <file>Help_icon-icons.com_55891.ico</file>
+    <file>settingscog_87317.ico</file>
+    <file>list-symbol-of-three-items-with-dots_icon-icons.com_72994.ico</file>
+  </qresource>
+</RCC>
