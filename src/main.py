@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
-from PyQt6.QtGui import QIcon, QMouseEvent
+from PyQt6.QtGui import *
 import vlc
 from mainwin import Ui_MainWindow
 
@@ -208,46 +208,80 @@ class MainWindow(QMainWindow):
     # Slider Logic.
 
     # # Event Filter
+
     def eventFilter(self, obj, event):
-        """Override eventFilter to handle mouse interaction with the slider."""
+        """Override eventFilter to handle mouse and scroll interaction with the slider."""
         if obj == self.ui.horizontalSlider:
             slider = self.ui.horizontalSlider
 
-            # Create a QStyleOptionSlider object to get the handle geometry
-            style_option = QStyleOptionSlider()
-            slider.initStyleOption(style_option)
-            handle_rect = slider.style().subControlRect(
-                QStyle.ComplexControl.CC_Slider,
-                style_option,
-                QStyle.SubControl.SC_SliderHandle,
-                slider
-            )
-            handle_center = handle_rect.center()
-            handle_radius = 10  # Radius around the handle to detect
+            # Handle mouse events
+            if isinstance(event, QMouseEvent):
+                # Create a QStyleOptionSlider object to get the handle geometry
+                style_option = QStyleOptionSlider()
+                slider.initStyleOption(style_option)
+                handle_rect = slider.style().subControlRect(
+                    QStyle.ComplexControl.CC_Slider,
+                    style_option,
+                    QStyle.SubControl.SC_SliderHandle,
+                    slider
+                )
+                handle_center = handle_rect.center()
+                handle_radius = 10  # Radius around the handle to detect
 
-            if event.type() == QMouseEvent.Type.MouseButtonPress:
-                mouse_pos = event.pos()
+                if event.type() == QMouseEvent.Type.MouseButtonPress:
+                    mouse_pos = event.pos()
 
-                # Check if the click is within the radius of the slider handle
-                if (handle_center - QPoint(mouse_pos.x(), mouse_pos.y())).manhattanLength() <= handle_radius:
-                    self.slider_dragging = True  # Register dragging
-                    self.handle_slider_drag(event)  # Start drag
+                    # Check if the click is within the radius of the slider handle
+                    if (handle_center - QPoint(mouse_pos.x(), mouse_pos.y())).manhattanLength() <= handle_radius:
+                        self.slider_dragging = True  # Register dragging
+                        self.handle_slider_drag(event)  # Start drag
+                        return True
+                    else:
+                        # Otherwise, jump to the clicked position on the slider
+                        self.handle_slider_click(event)
+                        return True
+
+                elif event.type() == QMouseEvent.Type.MouseButtonRelease:
+                    self.slider_dragging = False
                     return True
-                else:
-                    # Otherwise, jump to the clicked position on the slider
-                    self.handle_slider_click(event)
+
+                elif event.type() == QMouseEvent.Type.MouseMove and self.slider_dragging:
+                    # Handle dragging while mouse is pressed
+                    self.handle_slider_drag(event)
                     return True
 
-            elif event.type() == QMouseEvent.Type.MouseButtonRelease:
-                self.slider_dragging = False
-                return True
-
-            elif event.type() == QMouseEvent.Type.MouseMove and self.slider_dragging:
-                # Handle dragging while mouse is pressed
-                self.handle_slider_drag(event)
+            # Handle scroll events
+            elif isinstance(event, QWheelEvent):
+                self.handle_slider_scroll(event)
                 return True
 
         return super().eventFilter(obj, event)
+
+    ## Slider Scroll
+    # 1. Get Scroll
+    def handle_slider_scroll(self, event):
+        """Adjust media position based on scroll direction."""
+        delta = event.angleDelta().y()  # Positive for up, negative for down
+        if delta > 0:
+            self.seek_media(10)  # Scroll up: Forward by 10 seconds
+        elif delta < 0:
+            self.seek_media(-10)  # Scroll down: Backward by 10 seconds
+
+    # 2. Skip 'n' secondsr
+    def seek_media(self, seconds):
+        """Adjust the media position by the given number of seconds."""
+        if self.media_player:
+            try:
+                # Get the current position in milliseconds
+                current_position = self.media_player.get_time()
+                # Calculate the new position
+                new_position = current_position + (seconds * 1000)  # Convert seconds to milliseconds
+                # Ensure the new position is within valid bounds
+                new_position = max(0, min(new_position, self.media_player.get_length()))
+                # Set the new position
+                self.media_player.set_time(new_position)
+            except Exception as e:
+                print(f"Error while seeking media: {e}")
 
     # # Mouse Click Logic
     def handle_slider_click(self, event):
