@@ -1,6 +1,6 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
-from PyQt6.QtCore import QThread, pyqtSignal, QTimer, QSize
+from PyQt6.QtWidgets import *
+from PyQt6.QtCore import *
 from PyQt6.QtGui import QIcon, QMouseEvent
 import vlc
 from mainwin import Ui_MainWindow
@@ -105,13 +105,7 @@ class MainWindow(QMainWindow):
         self.ui.sound_btn.clicked.connect(self.clickedSoundbtn)
 
         # Connect sliders
-        self.ui.horizontalSlider.sliderPressed.connect(self.on_slider_pressed)
-        self.ui.horizontalSlider.sliderReleased.connect(self.slider_released)
         self.ui.horizontalSlider_2.valueChanged.connect(self.update_volume)
-        self.ui.horizontalSlider.sliderMoved.connect(self.slider_moved)  # Added to detect slider move event
-
-        # Slider interaction state
-        self.slider_dragging = False
 
         # Set initial volume
         self.ui.horizontalSlider_2.setValue(75)
@@ -132,11 +126,25 @@ class MainWindow(QMainWindow):
         # Relations
         self.slider = self.ui.horizontalSlider
 
-        # Connect the slider's pressed signal to handle mouse click
-        self.slider.installEventFilter(self)  # Install event filter to capture mouse events
+        # Install the event filter for the horizontal slider
+        self.ui.horizontalSlider.installEventFilter(self)
+
+        # Slider dragging state
+        self.slider_dragging = False
 
         # Global Variables
         self.storedVolume = 0
+
+        # Connect VLC events
+        # 1. When Media Ended.
+        self.media_player.event_manager().event_attach(vlc.EventType.MediaPlayerEndReached, self.on_video_end)
+
+    def on_video_end(self, event):
+        """Restart the video when it ends."""
+        print("Video ended. Restarting...")
+        # self.media_player.stop()  # Stop the current playback
+        self.media_player.set_time(0)  # Reset playback position to the beginning
+        self.media_player.play()  # Restart the video
 
     def open_file(self):
         """Open a file dialog to choose a media file."""
@@ -198,45 +206,92 @@ class MainWindow(QMainWindow):
         self.media_player.pause()
 
     # Slider Logic.
-    # 1. Drag Logic
-    def slider_pressed(self):
-        """Handle slider drag start."""
-        self.slider_dragging = True
 
-    def slider_released(self):
-        """Handle slider drag end and seek to new position."""
-        self.slider_dragging = False
-        new_position = self.ui.horizontalSlider.value()
-        self.media_player.set_time(new_position * 1000)
-
-    def slider_moved(self):
-        """Handle slider movement without pressing."""
-        if self.slider_dragging:
-            new_position = self.ui.horizontalSlider.value()
-            self.media_player.set_time(new_position * 1000)
-
-    # 2. Mouse Click Logic
+    # # Event Filter
     def eventFilter(self, obj, event):
-        """Override eventFilter to handle mouse click anywhere on the slider."""
-        if obj == self.slider and event.type() == QMouseEvent.Type.MouseButtonPress:
-            self.on_slider_pressed()  # Fix: Call on_slider_pressed, not on_slider_clicked
-            return True  # Return True to indicate the event was handled
+        """Override eventFilter to handle mouse interaction with the slider."""
+        if obj == self.ui.horizontalSlider:
+            slider = self.ui.horizontalSlider
+
+            # Create a QStyleOptionSlider object to get the handle geometry
+            style_option = QStyleOptionSlider()
+            slider.initStyleOption(style_option)
+            handle_rect = slider.style().subControlRect(
+                QStyle.ComplexControl.CC_Slider,
+                style_option,
+                QStyle.SubControl.SC_SliderHandle,
+                slider
+            )
+            handle_center = handle_rect.center()
+            handle_radius = 10  # Radius around the handle to detect
+
+            if event.type() == QMouseEvent.Type.MouseButtonPress:
+                mouse_pos = event.pos()
+
+                # Check if the click is within the radius of the slider handle
+                if (handle_center - QPoint(mouse_pos.x(), mouse_pos.y())).manhattanLength() <= handle_radius:
+                    self.slider_dragging = True  # Register dragging
+                    self.handle_slider_drag(event)  # Start drag
+                    return True
+                else:
+                    # Otherwise, jump to the clicked position on the slider
+                    self.handle_slider_click(event)
+                    return True
+
+            elif event.type() == QMouseEvent.Type.MouseButtonRelease:
+                self.slider_dragging = False
+                return True
+
+            elif event.type() == QMouseEvent.Type.MouseMove and self.slider_dragging:
+                # Handle dragging while mouse is pressed
+                self.handle_slider_drag(event)
+                return True
+
         return super().eventFilter(obj, event)
 
-    def on_slider_pressed(self):
-        """Handles when the slider is clicked anywhere except the handle."""
-        # Get the position of the mouse click on the slider
-        click_position = self.ui.horizontalSlider.mapFromGlobal(self.cursor().pos())
-        slider_width = self.ui.horizontalSlider.width()
+    # # Mouse Click Logic
+    def handle_slider_click(self, event):
+        """Handle a click on the slider area."""
+        slider = self.ui.horizontalSlider
 
-        # Calculate the slider value based on the mouse position
-        slider_value = (click_position.x() / slider_width) * (
-                    self.ui.horizontalSlider.maximum() - self.ui.horizontalSlider.minimum()) + self.ui.horizontalSlider.minimum()
+        # Get the position of the slider handle
+        slider_handle_position = slider.sliderPosition()
 
-        # Set the value of the slider to the calculated value
-        self.ui.horizontalSlider.setValue(int(slider_value))
-        print(int(slider_value))
-        self.media_player.set_time(int(slider_value) * 1000)
+        # Get the width of the slider handle
+        handle_width = slider.style().pixelMetric(QStyle.PixelMetric.PM_SliderLength)
+
+        # Calculate the pixel position of the slider handle
+        slider_width = slider.width()
+        slider_left = int(slider_handle_position * slider_width / (slider.maximum() - slider.minimum()))
+
+        # Define the range of the handle
+        handle_start = slider_left - (handle_width // 2)
+        handle_end = slider_left + (handle_width // 2)
+
+        # Check if the click is on the handle
+        if handle_start <= event.pos().x() <= handle_end:
+            self.slider_dragging = True
+        else:
+            # If the click is not on the handle, jump to the clicked position
+            click_position = event.pos().x()
+            new_value = int(click_position * (slider.maximum() - slider.minimum()) / slider_width)
+            slider.setValue(new_value)
+            self.media_player.set_time(new_value * 1000)
+
+    # # Drag Logic
+    def handle_slider_drag(self, event):
+        """Handle dragging of the slider handle."""
+        slider = self.ui.horizontalSlider
+        drag_pos = event.position().x()
+        slider_rect = slider.geometry()
+
+        # Calculate new slider value
+        new_value = (
+            (drag_pos / slider_rect.width()) * (slider.maximum() - slider.minimum())
+            + slider.minimum()
+        )
+        slider.setValue(int(new_value))
+        self.media_player.set_time(int(new_value) * 1000)
 
     # Volume Logic.
     # 1. Slider
