@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>rewind.png</file>
     <file>976598-appliances-case-computer-computer-tower-desktop-pc_106551.ico</file>
     <file>box.ico</file>
     <file>dropbox.ico</file>
@@ -8,6 +9,10 @@
     <file>yt.ico</file>
   </qresource>
   <qresource prefix="ui_icons">
+    <file>rewind-button.png</file>
+    <file>caption.png</file>
+    <file>expand.png</file>
+    <file>wave.png</file>
     <file>stop-button.png</file>
     <file>adjust.png</file>
     <file>audio.png</file>

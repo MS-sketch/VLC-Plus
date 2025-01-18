@@ -134,21 +134,37 @@ class MainWindow(QMainWindow):
 
         # Global Variables
         self.storedVolume = 0
+        self.currentMediaLocation = None
+        self.currentMediaLength = 0 # Length is in Milli Seconds
 
         # Connect VLC events
         # 1. When Media Ended.
         self.media_player.event_manager().event_attach(vlc.EventType.MediaPlayerEndReached, self.on_video_end)
 
+
+    # When the Video Ends
     def on_video_end(self, event):
-        """Restart the video when it ends."""
-        print("Video ended. Restarting...")
-        # self.media_player.stop()  # Stop the current playback
-        self.media_player.set_time(0)  # Reset playback position to the beginning
-        self.media_player.play()  # Restart the video
+        """Handle the event when the video ends."""
+        if self.currentMediaLocation:
+            self.replay_video()
+        else:
+            self.disablePlay()
+
+    def replay_video(self):
+        """Replay the current video."""
+        if self.currentMediaLocation:
+            self.load_media(self.currentMediaLocation)
+
 
     def open_file(self):
         """Open a file dialog to choose a media file."""
         file_name, _ = QFileDialog.getOpenFileName(self, "Open Media File")
+        if file_name:
+            self.load_media(file_name)
+            self.currentMediaLocation = file_name
+
+    def load_media(self, file_name):
+        """Load the specified media file into the media player."""
         if file_name:
             # Start the file loading thread to load the media
             self.file_loader_thread = FileLoaderThread(file_name, self.media_player, self.instance)
@@ -167,6 +183,11 @@ class MainWindow(QMainWindow):
             self.ui.play_btn.setIcon(QIcon("icons/ui_files/pause.png"))
         self.is_playing = not self.is_playing
 
+    def disablePlay(self):
+        self.ui.play_btn.setIcon(QIcon("icons/ui_files/play.png"))
+        self.ui.play_btn.setDisabled(True)
+        self.media_player.stop()
+
     def on_file_loaded(self, file_name):
         """Called once the media file is loaded."""
         self.media_player.set_hwnd(self.ui.widget_2.winId())
@@ -180,6 +201,10 @@ class MainWindow(QMainWindow):
     def force_update(self):
         """Forces an update to the slider and labels after opening a file."""
         total_length = self.media_player.get_length() // 1000
+
+        # Set The Media Time In Variable
+        self.currentMediaLength = total_length * 1000
+
         current_time = self.media_player.get_time() // 1000
         if total_length > 0:
             self.update_total_length(total_length)
@@ -267,7 +292,7 @@ class MainWindow(QMainWindow):
         elif delta < 0:
             self.seek_media(-10)  # Scroll down: Backward by 10 seconds
 
-    # 2. Skip 'n' secondsr
+    # 2. Skip 'n' seconds
     def seek_media(self, seconds):
         """Adjust the media position by the given number of seconds."""
         if self.media_player:
@@ -277,7 +302,7 @@ class MainWindow(QMainWindow):
                 # Calculate the new position
                 new_position = current_position + (seconds * 1000)  # Convert seconds to milliseconds
                 # Ensure the new position is within valid bounds
-                new_position = max(0, min(new_position, self.media_player.get_length()))
+                new_position = max(0, min(new_position, self.currentMediaLength))
                 # Set the new position
                 self.media_player.set_time(new_position)
             except Exception as e:
@@ -375,7 +400,6 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         """Override closeEvent to ensure proper cleanup before closing."""
-        print("Closing the application...")
 
         # Start a separate thread to handle cleanup
         self.cleanup_thread = CleanupThread(self.media_player, self.instance)
@@ -407,6 +431,11 @@ class MainWindow(QMainWindow):
         self.ui.settings.setIcon(QIcon("icons/ui_files/settingscog_87317.ico"))
         self.ui.about.setIcon(QIcon("icons/ui_files/4213426-about-description-help-info-information-notification_115427.ico"))
         self.ui.help.setIcon(QIcon("icons/ui_files/Help_icon-icons.com_55891.ico"))
+        self.ui.rewind_btn.setIcon(QIcon("icons/ui_files/rewind.png"))
+        self.ui.fastforward_btn.setIcon(QIcon("icons/ui_files/fast-forward.png"))
+        self.ui.caption_btn.setIcon(QIcon("icons/ui_files/caption.png"))
+        self.ui.expand_btn.setIcon(QIcon("icons/ui_files/expand.png"))
+        self.ui.repeat_btn.setIcon(QIcon("icons/ui_files/repeat.png"))
 
     @staticmethod
     def format_time(seconds):

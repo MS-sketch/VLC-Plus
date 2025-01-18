@@ -12,23 +12,31 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(948, 630)
+        MainWindow.resize(1166, 738)
         MainWindow.setStyleSheet("#MainWindow {\n"
 "        background-color: #fff;\n"
 "    }")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout.setSpacing(0)
-        self.gridLayout.setObjectName("gridLayout")
+        self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout_14.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_14.setSpacing(0)
+        self.verticalLayout_14.setObjectName("verticalLayout_14")
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
         self.stackedWidget.setSizePolicy(sizePolicy)
-        self.stackedWidget.setStyleSheet("")
+        self.stackedWidget.setStyleSheet("QStackedWidget {\n"
+"    padding: 0;\n"
+"    margin: 0;\n"
+"    border: none;\n"
+"}\n"
+"QStackedWidget > QWidget {\n"
+"    padding: 0;\n"
+"    margin: 0;\n"
+"}")
         self.stackedWidget.setObjectName("stackedWidget")
         self.page_2 = QtWidgets.QWidget()
         self.page_2.setObjectName("page_2")
@@ -478,7 +486,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 172, 484))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 180, 502))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
@@ -768,23 +776,26 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.page_2)
         self.page = QtWidgets.QWidget()
         self.page.setObjectName("page")
-        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.page)
-        self.verticalLayout_11.setObjectName("verticalLayout_11")
-        self.widget_2 = QtWidgets.QWidget(parent=self.page)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.gridLayout = QtWidgets.QGridLayout(self.page)
+        self.gridLayout.setObjectName("gridLayout")
+        self.widget_2 = QtOpenGLWidgets.QOpenGLWidget(parent=self.page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.MinimumExpanding, QtWidgets.QSizePolicy.Policy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.widget_2.sizePolicy().hasHeightForWidth())
         self.widget_2.setSizePolicy(sizePolicy)
+        self.widget_2.setMinimumSize(QtCore.QSize(0, 0))
+        self.widget_2.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.NoContextMenu)
+        self.widget_2.setToolTip("")
         self.widget_2.setObjectName("widget_2")
-        self.verticalLayout_11.addWidget(self.widget_2)
+        self.gridLayout.addWidget(self.widget_2, 0, 0, 1, 1)
         self.frame_10 = QtWidgets.QFrame(parent=self.page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame_10.sizePolicy().hasHeightForWidth())
         self.frame_10.setSizePolicy(sizePolicy)
-        self.frame_10.setMaximumSize(QtCore.QSize(16777215, 28))
+        self.frame_10.setMaximumSize(QtCore.QSize(16777215, 27))
         self.frame_10.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_10.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_10.setObjectName("frame_10")
@@ -797,7 +808,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         self.label_4.setFont(font)
         self.label_4.setTextFormat(QtCore.Qt.TextFormat.PlainText)
-        self.label_4.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
+        self.label_4.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_4.setObjectName("label_4")
         self.horizontalLayout_10.addWidget(self.label_4)
         self.horizontalSlider = QtWidgets.QSlider(parent=self.frame_10)
@@ -855,17 +866,17 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         font.setBold(True)
         self.label_7.setFont(font)
-        self.label_7.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
+        self.label_7.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_7.setObjectName("label_7")
         self.horizontalLayout_10.addWidget(self.label_7)
-        self.verticalLayout_11.addWidget(self.frame_10)
+        self.gridLayout.addWidget(self.frame_10, 1, 0, 1, 1)
         self.frame_11 = QtWidgets.QFrame(parent=self.page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame_11.sizePolicy().hasHeightForWidth())
         self.frame_11.setSizePolicy(sizePolicy)
-        self.frame_11.setMaximumSize(QtCore.QSize(16777215, 45))
+        self.frame_11.setMaximumSize(QtCore.QSize(16777215, 38))
         self.frame_11.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_11.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_11.setObjectName("frame_11")
@@ -893,6 +904,9 @@ class Ui_MainWindow(object):
 "    text-align: center;      /* Centers the text */\n"
 "}")
         self.play_btn.setText("")
+        icon13 = QtGui.QIcon()
+        icon13.addPixmap(QtGui.QPixmap(":/ui_icons/play.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.play_btn.setIcon(icon13)
         self.play_btn.setObjectName("play_btn")
         self.horizontalLayout_11.addWidget(self.play_btn)
         spacerItem12 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
@@ -919,6 +933,9 @@ class Ui_MainWindow(object):
 "    text-align: center;      /* Centers the text */\n"
 "}")
         self.previous_btn.setText("")
+        icon14 = QtGui.QIcon()
+        icon14.addPixmap(QtGui.QPixmap(":/ui_icons/back.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.previous_btn.setIcon(icon14)
         self.previous_btn.setObjectName("previous_btn")
         self.horizontalLayout_11.addWidget(self.previous_btn)
         self.stop_btn = QtWidgets.QPushButton(parent=self.frame_11)
@@ -943,6 +960,9 @@ class Ui_MainWindow(object):
 "    text-align: center;      /* Centers the text */\n"
 "}")
         self.stop_btn.setText("")
+        icon15 = QtGui.QIcon()
+        icon15.addPixmap(QtGui.QPixmap(":/ui_icons/stop-button.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.stop_btn.setIcon(icon15)
         self.stop_btn.setObjectName("stop_btn")
         self.horizontalLayout_11.addWidget(self.stop_btn)
         self.next_btn = QtWidgets.QPushButton(parent=self.frame_11)
@@ -967,10 +987,71 @@ class Ui_MainWindow(object):
 "    text-align: center;      /* Centers the text */\n"
 "}")
         self.next_btn.setText("")
+        icon16 = QtGui.QIcon()
+        icon16.addPixmap(QtGui.QPixmap(":/ui_icons/next.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.next_btn.setIcon(icon16)
         self.next_btn.setObjectName("next_btn")
         self.horizontalLayout_11.addWidget(self.next_btn)
         spacerItem13 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_11.addItem(spacerItem13)
+        self.rewind_btn = QtWidgets.QPushButton(parent=self.frame_11)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.rewind_btn.sizePolicy().hasHeightForWidth())
+        self.rewind_btn.setSizePolicy(sizePolicy)
+        self.rewind_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.rewind_btn.setStyleSheet("#rewind_btn {\n"
+"    background: transparent;  /* Makes the background fully transparent */\n"
+"    border: none;            /* Removes the border completely */\n"
+"    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */\n"
+"    padding: 5px;            /* Adds padding */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}\n"
+"\n"
+"#rewind_btn:disabled {\n"
+"    background: transparent; /* Keeps the background transparent when disabled */\n"
+"    border: none;            /* Ensures no border when disabled */\n"
+"    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}")
+        self.rewind_btn.setText("")
+        icon17 = QtGui.QIcon()
+        icon17.addPixmap(QtGui.QPixmap(":/icons/rewind.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.rewind_btn.setIcon(icon17)
+        self.rewind_btn.setIconSize(QtCore.QSize(20, 20))
+        self.rewind_btn.setObjectName("rewind_btn")
+        self.horizontalLayout_11.addWidget(self.rewind_btn)
+        self.fastforward_btn = QtWidgets.QPushButton(parent=self.frame_11)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.fastforward_btn.sizePolicy().hasHeightForWidth())
+        self.fastforward_btn.setSizePolicy(sizePolicy)
+        self.fastforward_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.fastforward_btn.setStyleSheet("#fastforward_btn {\n"
+"    background: transparent;  /* Makes the background fully transparent */\n"
+"    border: none;            /* Removes the border completely */\n"
+"    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */\n"
+"    padding: 5px;            /* Adds padding */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}\n"
+"\n"
+"#fastforward_btn:disabled {\n"
+"    background: transparent; /* Keeps the background transparent when disabled */\n"
+"    border: none;            /* Ensures no border when disabled */\n"
+"    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}")
+        self.fastforward_btn.setText("")
+        icon18 = QtGui.QIcon()
+        icon18.addPixmap(QtGui.QPixmap(":/ui_icons/fast-forward.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.fastforward_btn.setIcon(icon18)
+        self.fastforward_btn.setIconSize(QtCore.QSize(20, 20))
+        self.fastforward_btn.setObjectName("fastforward_btn")
+        self.horizontalLayout_11.addWidget(self.fastforward_btn)
+        spacerItem14 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem14)
         self.home_btn = QtWidgets.QPushButton(parent=self.frame_11)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
         sizePolicy.setHorizontalStretch(0)
@@ -993,8 +1074,13 @@ class Ui_MainWindow(object):
 "    text-align: center;      /* Centers the text */\n"
 "}")
         self.home_btn.setText("")
+        icon19 = QtGui.QIcon()
+        icon19.addPixmap(QtGui.QPixmap(":/ui_icons/video.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.home_btn.setIcon(icon19)
         self.home_btn.setObjectName("home_btn")
         self.horizontalLayout_11.addWidget(self.home_btn)
+        spacerItem15 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem15)
         self.eq_btn = QtWidgets.QPushButton(parent=self.frame_11)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
         sizePolicy.setHorizontalStretch(0)
@@ -1017,18 +1103,104 @@ class Ui_MainWindow(object):
 "    text-align: center;      /* Centers the text */\n"
 "}")
         self.eq_btn.setText("")
+        icon20 = QtGui.QIcon()
+        icon20.addPixmap(QtGui.QPixmap(":/ui_icons/eq.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.eq_btn.setIcon(icon20)
+        self.eq_btn.setIconSize(QtCore.QSize(20, 20))
         self.eq_btn.setObjectName("eq_btn")
         self.horizontalLayout_11.addWidget(self.eq_btn)
-        spacerItem14 = QtWidgets.QSpacerItem(70, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_11.addItem(spacerItem14)
-        spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_11.addItem(spacerItem15)
-        spacerItem16 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem16 = QtWidgets.QSpacerItem(70, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_11.addItem(spacerItem16)
-        spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem17 = QtWidgets.QSpacerItem(5, 20, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_11.addItem(spacerItem17)
+        self.caption_btn = QtWidgets.QPushButton(parent=self.frame_11)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.caption_btn.sizePolicy().hasHeightForWidth())
+        self.caption_btn.setSizePolicy(sizePolicy)
+        self.caption_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.caption_btn.setStyleSheet("#caption_btn {\n"
+"    background: transparent;  /* Makes the background fully transparent */\n"
+"    border: none;            /* Removes the border completely */\n"
+"    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */\n"
+"    padding: 5px;            /* Adds padding */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}\n"
+"\n"
+"#caption_btn:disabled {\n"
+"    background: transparent; /* Keeps the background transparent when disabled */\n"
+"    border: none;            /* Ensures no border when disabled */\n"
+"    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}")
+        self.caption_btn.setText("")
+        icon21 = QtGui.QIcon()
+        icon21.addPixmap(QtGui.QPixmap(":/ui_icons/caption.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.caption_btn.setIcon(icon21)
+        self.caption_btn.setIconSize(QtCore.QSize(20, 20))
+        self.caption_btn.setObjectName("caption_btn")
+        self.horizontalLayout_11.addWidget(self.caption_btn)
+        self.expand_btn = QtWidgets.QPushButton(parent=self.frame_11)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.expand_btn.sizePolicy().hasHeightForWidth())
+        self.expand_btn.setSizePolicy(sizePolicy)
+        self.expand_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.expand_btn.setStyleSheet("#expand_btn {\n"
+"    background: transparent;  /* Makes the background fully transparent */\n"
+"    border: none;            /* Removes the border completely */\n"
+"    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */\n"
+"    padding: 5px;            /* Adds padding */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}\n"
+"\n"
+"#expand_btn:disabled {\n"
+"    background: transparent; /* Keeps the background transparent when disabled */\n"
+"    border: none;            /* Ensures no border when disabled */\n"
+"    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}")
+        self.expand_btn.setText("")
+        icon22 = QtGui.QIcon()
+        icon22.addPixmap(QtGui.QPixmap(":/ui_icons/expand.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.expand_btn.setIcon(icon22)
+        self.expand_btn.setIconSize(QtCore.QSize(20, 20))
+        self.expand_btn.setObjectName("expand_btn")
+        self.horizontalLayout_11.addWidget(self.expand_btn)
+        self.repeat_btn = QtWidgets.QPushButton(parent=self.frame_11)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.repeat_btn.sizePolicy().hasHeightForWidth())
+        self.repeat_btn.setSizePolicy(sizePolicy)
+        self.repeat_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.repeat_btn.setStyleSheet("#repeat_btn {\n"
+"    background: transparent;  /* Makes the background fully transparent */\n"
+"    border: none;            /* Removes the border completely */\n"
+"    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */\n"
+"    padding: 5px;            /* Adds padding */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}\n"
+"\n"
+"#repeat_btn:disabled {\n"
+"    background: transparent; /* Keeps the background transparent when disabled */\n"
+"    border: none;            /* Ensures no border when disabled */\n"
+"    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */\n"
+"    text-align: center;      /* Centers the text */\n"
+"}")
+        self.repeat_btn.setText("")
+        icon23 = QtGui.QIcon()
+        icon23.addPixmap(QtGui.QPixmap(":/ui_icons/repeat.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.repeat_btn.setIcon(icon23)
+        self.repeat_btn.setIconSize(QtCore.QSize(20, 20))
+        self.repeat_btn.setObjectName("repeat_btn")
+        self.horizontalLayout_11.addWidget(self.repeat_btn)
         spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_11.addItem(spacerItem18)
+        spacerItem19 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem19)
         self.sound_btn = QtWidgets.QPushButton(parent=self.frame_11)
         self.sound_btn.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Maximum)
@@ -1053,9 +1225,9 @@ class Ui_MainWindow(object):
 "    text-align: center;      /* Centers the text */\n"
 "}")
         self.sound_btn.setText("")
-        icon13 = QtGui.QIcon()
-        icon13.addPixmap(QtGui.QPixmap(":/ui_icons/high-volume.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.sound_btn.setIcon(icon13)
+        icon24 = QtGui.QIcon()
+        icon24.addPixmap(QtGui.QPixmap(":/ui_icons/high-volume.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sound_btn.setIcon(icon24)
         self.sound_btn.setIconSize(QtCore.QSize(20, 20))
         self.sound_btn.setObjectName("sound_btn")
         self.horizontalLayout_11.addWidget(self.sound_btn)
@@ -1113,9 +1285,9 @@ class Ui_MainWindow(object):
         self.horizontalSlider_2.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.horizontalSlider_2.setObjectName("horizontalSlider_2")
         self.horizontalLayout_11.addWidget(self.horizontalSlider_2)
-        self.verticalLayout_11.addWidget(self.frame_11)
+        self.gridLayout.addWidget(self.frame_11, 2, 0, 1, 1)
         self.stackedWidget.addWidget(self.page)
-        self.gridLayout.addWidget(self.stackedWidget, 0, 0, 1, 1)
+        self.verticalLayout_14.addWidget(self.stackedWidget)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -1149,6 +1321,7 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", "Nothing New!"))
         self.label_4.setText(_translate("MainWindow", "--:--"))
         self.label_7.setText(_translate("MainWindow", "--:--"))
+from PyQt6 import QtOpenGLWidgets
 
 
 if __name__ == "__main__":

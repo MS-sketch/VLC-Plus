@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>948</width>
-    <height>630</height>
+    <width>1166</width>
+    <height>738</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,10 @@
 	}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_14">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -32,10 +35,7 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <property name="spacing">
-     <number>0</number>
-    </property>
-    <item row="0" column="0">
+    <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -44,7 +44,15 @@
        </sizepolicy>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">QStackedWidget {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+QStackedWidget &gt; QWidget {
+    padding: 0;
+    margin: 0;
+}</string>
       </property>
       <property name="currentIndex">
        <number>1</number>
@@ -910,8 +918,8 @@ QScrollBar::add-page, QScrollBar::sub-page {
                                 <rect>
                                  <x>0</x>
                                  <y>0</y>
-                                 <width>172</width>
-                                 <height>484</height>
+                                 <width>180</width>
+                                 <height>502</height>
                                 </rect>
                                </property>
                                <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -1445,18 +1453,30 @@ QPushButton#localhost:disabled {
        </layout>
       </widget>
       <widget class="QWidget" name="page">
-       <layout class="QVBoxLayout" name="verticalLayout_11">
-        <item>
-         <widget class="QWidget" name="widget_2" native="true">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QOpenGLWidget" name="widget_2">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+          </property>
+          <property name="toolTip">
+           <string notr="true"/>
+          </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="0">
          <widget class="QFrame" name="frame_10">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -1467,7 +1487,7 @@ QPushButton#localhost:disabled {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>28</height>
+            <height>27</height>
            </size>
           </property>
           <property name="frameShape">
@@ -1498,7 +1518,7 @@ QPushButton#localhost:disabled {
               <enum>Qt::TextFormat::PlainText</enum>
              </property>
              <property name="alignment">
-              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+              <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
              </property>
             </widget>
            </item>
@@ -1583,14 +1603,14 @@ QPushButton#localhost:disabled {
               <string>--:--</string>
              </property>
              <property name="alignment">
-              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+              <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
              </property>
             </widget>
            </item>
           </layout>
          </widget>
         </item>
-        <item>
+        <item row="2" column="0">
          <widget class="QFrame" name="frame_11">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -1601,7 +1621,7 @@ QPushButton#localhost:disabled {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>45</height>
+            <height>38</height>
            </size>
           </property>
           <property name="frameShape">
@@ -1640,6 +1660,10 @@ QPushButton#localhost:disabled {
              </property>
              <property name="text">
               <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/play.png</normaloff>:/ui_icons/play.png</iconset>
              </property>
             </widget>
            </item>
@@ -1689,6 +1713,10 @@ QPushButton#localhost:disabled {
              <property name="text">
               <string/>
              </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/back.png</normaloff>:/ui_icons/back.png</iconset>
+             </property>
             </widget>
            </item>
            <item>
@@ -1721,6 +1749,10 @@ QPushButton#localhost:disabled {
              <property name="text">
               <string/>
              </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/stop-button.png</normaloff>:/ui_icons/stop-button.png</iconset>
+             </property>
             </widget>
            </item>
            <item>
@@ -1752,6 +1784,110 @@ QPushButton#localhost:disabled {
              </property>
              <property name="text">
               <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/next.png</normaloff>:/ui_icons/next.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_12">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Policy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>10</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="rewind_btn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#rewind_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#rewind_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/icons/rewind.png</normaloff>:/icons/rewind.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="fastforward_btn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#fastforward_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#fastforward_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/fast-forward.png</normaloff>:/ui_icons/fast-forward.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -1801,7 +1937,27 @@ QPushButton#localhost:disabled {
              <property name="text">
               <string/>
              </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/video.png</normaloff>:/ui_icons/video.png</iconset>
+             </property>
             </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_13">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Policy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>10</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item>
             <widget class="QPushButton" name="eq_btn">
@@ -1833,6 +1989,16 @@ QPushButton#localhost:disabled {
              <property name="text">
               <string/>
              </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/eq.png</normaloff>:/ui_icons/eq.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
             </widget>
            </item>
            <item>
@@ -1853,26 +2019,142 @@ QPushButton#localhost:disabled {
              <property name="orientation">
               <enum>Qt::Orientation::Horizontal</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Policy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>40</width>
+               <width>5</width>
                <height>20</height>
               </size>
              </property>
             </spacer>
            </item>
            <item>
-            <spacer name="horizontalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Orientation::Horizontal</enum>
+            <widget class="QPushButton" name="caption_btn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="sizeHint" stdset="0">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#caption_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#caption_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/caption.png</normaloff>:/ui_icons/caption.png</iconset>
+             </property>
+             <property name="iconSize">
               <size>
-               <width>40</width>
+               <width>20</width>
                <height>20</height>
               </size>
              </property>
-            </spacer>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="expand_btn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#expand_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#expand_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/expand.png</normaloff>:/ui_icons/expand.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="repeat_btn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#repeat_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#repeat_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="icon.qrc">
+               <normaloff>:/ui_icons/repeat.png</normaloff>:/ui_icons/repeat.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
             <spacer name="horizontalSpacer_8">
