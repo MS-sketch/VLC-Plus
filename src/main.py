@@ -4,6 +4,33 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 import vlc
 from mainwin import Ui_MainWindow
+import os
+
+class SliderSyncThread(QThread):
+    """Thread to sync media position with slider during dragging."""
+    sync_signal = pyqtSignal(int)
+
+    def __init__(self, media_player, slider, parent=None):
+        super().__init__(parent)
+        self.media_player = media_player
+        self.slider = slider
+        self.running = False
+
+    def run(self):
+        """Sync slider position with media playback."""
+        self.running = True
+        while self.running:
+            if self.media_player:
+                # Get current media time and update the slider
+                current_time = self.media_player.get_time() / 1000  # Convert to seconds
+                self.sync_signal.emit(int(current_time))
+            self.msleep(50)  # Update every 50 ms
+
+    def stop(self):
+        """Stop the sync thread."""
+        self.running = False
+        self.wait()
+
 
 class PlaybackTimeThread(QThread):
     """Thread to fetch the current playback time periodically."""
@@ -261,6 +288,7 @@ class MainWindow(QMainWindow):
 
         # Slider dragging state
         self.slider_dragging = False
+        self.slider_sync_thread = None  # Thread for slider synchronization
 
         # Global Variables
         self.storedVolume = 0
@@ -271,6 +299,9 @@ class MainWindow(QMainWindow):
         self.playback_time_thread = PlaybackTimeThread(self.media_player)
         self.playback_time_thread.playback_time_signal.connect(self.force_update)
         self.playback_time_thread.start()
+
+        # Enable drag-and-drop for the stacked widget
+        self.ui.stackedWidget.setAcceptDrops(True)
 
         # Connect VLC events
         # 1. When Media Ended.
@@ -290,7 +321,7 @@ class MainWindow(QMainWindow):
         if self.currentMediaLocation:
             self.load_media(self.currentMediaLocation)
 
-
+    # Video Management
     def open_file(self):
         """Open a file dialog to choose a media file."""
         file_name, _ = QFileDialog.getOpenFileName(self, "Open Media File")
@@ -365,6 +396,36 @@ class MainWindow(QMainWindow):
         """Pause the video."""
         self.media_player.pause()
 
+    # Handling Dropping a video file
+    def dragEnterEvent(self, event: QDragEnterEvent):
+        """Handle drag events to accept file drops."""
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event: QDropEvent):
+        """Handle the drop event to get the file and play it."""
+        for url in event.mimeData().urls():
+            file_path = url.toLocalFile()
+            if os.path.isfile(file_path):  # Ensure it's a valid file
+                self.play_dropped_file(file_path)
+                break  # Handle only the first file for now
+            else:
+                event.ignore()
+
+    def play_dropped_file(self, file_path):
+        """Play the dropped media file."""
+        try:
+            # Start the file loading thread to load the media
+            self.file_loader_thread = FileLoaderThread(file_path, self.media_player, self.instance)
+            self.file_loader_thread.file_loaded_signal.connect(self.on_file_loaded)
+            self.file_loader_thread.start()
+            self.ui.play_btn.setEnabled(True)
+            self.ui.play_btn.setIcon(QIcon("icons/ui_files/pause.png"))
+        except Exception as e:
+            self.errorHandler(f"Error playing dropped file: {e}")
+
     # Slider Logic.
 
     # # Event Filter
@@ -395,6 +456,16 @@ class MainWindow(QMainWindow):
                     if (handle_center - QPoint(mouse_pos.x(), mouse_pos.y())).manhattanLength() <= handle_radius:
                         self.slider_dragging = True  # Register dragging
                         self.handle_slider_drag(event)  # Start drag
+
+                        ##
+                        if not self.slider_sync_thread:
+                            self.slider_sync_thread = SliderSyncThread(self.media_player, slider)
+                            self.slider_sync_thread.sync_signal.connect(self.update_slider_position)
+                            self.slider_sync_thread.start()
+
+
+                        ##
+
                         return True
                     else:
                         # Otherwise, jump to the clicked position on the slider
@@ -403,6 +474,18 @@ class MainWindow(QMainWindow):
 
                 elif event.type() == QMouseEvent.Type.MouseButtonRelease:
                     self.slider_dragging = False
+
+                    ##
+                    # Stop the slider sync thread
+                    if self.slider_sync_thread:
+                        self.slider_sync_thread.stop()
+                        self.slider_sync_thread = None
+
+                    # Finalize the media time to the slider's current position
+                    new_position = self.ui.horizontalSlider.value()
+                    self.media_player.set_time(new_position * 1000)  # Convert to milliseconds
+                    ##
+
                     return True
 
                 elif event.type() == QMouseEvent.Type.MouseMove and self.slider_dragging:
@@ -416,6 +499,17 @@ class MainWindow(QMainWindow):
                 return True
 
         return super().eventFilter(obj, event)
+
+    def update_slider_position(self, current_time):
+        """Update the slider position based on the media time."""
+        slider = self.ui.horizontalSlider
+        # Update the slider's value to reflect the current media time
+        if not self.slider_dragging:
+            slider.setValue(int(current_time))
+
+        # Update the label (label_4) to display the formatted time
+        formatted_time = self.format_time(current_time)
+        self.ui.label_4.setText(formatted_time)
 
     ## Slider Scroll
     # 1. Get Scroll
