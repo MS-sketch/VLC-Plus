@@ -5,6 +5,64 @@ from PyQt6.QtGui import *
 import vlc
 from mainwin import Ui_MainWindow
 
+class PlaybackTimeThread(QThread):
+    """Thread to fetch the current playback time periodically."""
+    playback_time_signal = pyqtSignal(int)  # Signal to emit the playback time in seconds
+
+    def __init__(self, media_player, interval=1000):
+        """
+        Initialize the thread.
+        :param media_player: VLC media player instance
+        :param interval: Time interval (in ms) to fetch the playback time
+        """
+        super().__init__()
+        self.media_player = media_player
+        self.interval = interval
+        self.running = False
+
+    def run(self):
+        """Fetch the current playback time in a loop."""
+        self.running = True
+        while self.running:
+            try:
+                # Get the current playback time in milliseconds and convert to seconds
+                current_time = self.media_player.get_time() // 1000
+                if current_time >= 0:
+                    self.playback_time_signal.emit(current_time)  # Emit the playback time
+            except Exception as e:
+                self.errorHandler(e)
+            self.msleep(self.interval)
+
+    def errorHandler(self, errorMsg):
+        error = QMessageBox(self)
+
+        error.setWindowTitle("An Error Occurred.")
+        error.setText(errorMsg)
+        error.setIcon(QMessageBox.Icon.Critical)
+
+        # Add custom buttons
+        quit_button = QPushButton("Quit")
+        ignore_button = QPushButton("Ignore")
+
+        # Add the custom buttons to the QMessageBox
+        error.addButton(quit_button, QMessageBox.ButtonRole.RejectRole)
+        error.addButton(ignore_button, QMessageBox.ButtonRole.ActionRole)
+
+        # Execute the dialog
+        errorDiag = error.exec()
+
+        # Handle the button clicks
+        if error.clickedButton() == quit_button:
+            self.close()  # Close the application
+        else:
+            error.close()  # Close the dialog
+
+    def stop(self):
+        """Stop the thread gracefully."""
+        self.running = False
+        self.quit()
+        self.wait()
+
 
 class VideoPlayerThread(QThread):
     """Handle video playback and information retrieval in a background thread."""
@@ -33,7 +91,31 @@ class VideoPlayerThread(QThread):
 
                 self.msleep(1000)  # Update once per second for reduced CPU usage
         except Exception as e:
-            print(f"Error in VideoPlayerThread: {e}")
+            self.errorHandler(e)
+
+    def errorHandler(self, errorMsg):
+        error = QMessageBox(self)
+
+        error.setWindowTitle("An Error Occurred.")
+        error.setText(errorMsg)
+        error.setIcon(QMessageBox.Icon.Critical)
+
+        # Add custom buttons
+        quit_button = QPushButton("Quit")
+        ignore_button = QPushButton("Ignore")
+
+        # Add the custom buttons to the QMessageBox
+        error.addButton(quit_button, QMessageBox.ButtonRole.RejectRole)
+        error.addButton(ignore_button, QMessageBox.ButtonRole.ActionRole)
+
+        # Execute the dialog
+        errorDiag = error.exec()
+
+        # Handle the button clicks
+        if error.clickedButton() == quit_button:
+            self.close()  # Close the application
+        else:
+            error.close()  # Close the dialog
 
     def stop(self):
         """Gracefully stop the thread."""
@@ -52,6 +134,30 @@ class FileLoaderThread(QThread):
         self.media_player = media_player
         self.instance = instance
 
+    def errorHandler(self, errorMsg):
+        error = QMessageBox(self)
+
+        error.setWindowTitle("An Error Occurred.")
+        error.setText(errorMsg)
+        error.setIcon(QMessageBox.Icon.Critical)
+
+        # Add custom buttons
+        quit_button = QPushButton("Quit")
+        ignore_button = QPushButton("Ignore")
+
+        # Add the custom buttons to the QMessageBox
+        error.addButton(quit_button, QMessageBox.ButtonRole.RejectRole)
+        error.addButton(ignore_button, QMessageBox.ButtonRole.ActionRole)
+
+        # Execute the dialog
+        errorDiag = error.exec()
+
+        # Handle the button clicks
+        if error.clickedButton() == quit_button:
+            self.close()  # Close the application
+        else:
+            error.close()  # Close the dialog
+
     def run(self):
         """Load the file into VLC."""
         try:
@@ -59,7 +165,7 @@ class FileLoaderThread(QThread):
             self.media_player.set_media(media)
             self.file_loaded_signal.emit(self.file_name)
         except Exception as e:
-            print(f"Error in FileLoaderThread: {e}")
+            self.errorHandler(e)
 
 
 class CleanupThread(QThread):
@@ -77,7 +183,31 @@ class CleanupThread(QThread):
             # Release the VLC instance
             self.instance.release()
         except Exception as e:
-            print(f"Error in CleanupThread: {e}")
+            self.errorHandler(e)
+
+    def errorHandler(self, errorMsg):
+        error = QMessageBox(self)
+
+        error.setWindowTitle("An Error Occurred.")
+        error.setText(errorMsg)
+        error.setIcon(QMessageBox.Icon.Critical)
+
+        # Add custom buttons
+        quit_button = QPushButton("Quit")
+        ignore_button = QPushButton("Ignore")
+
+        # Add the custom buttons to the QMessageBox
+        error.addButton(quit_button, QMessageBox.ButtonRole.RejectRole)
+        error.addButton(ignore_button, QMessageBox.ButtonRole.ActionRole)
+
+        # Execute the dialog
+        errorDiag = error.exec()
+
+        # Handle the button clicks
+        if error.clickedButton() == quit_button:
+            self.close()  # Close the application
+        else:
+            error.close()  # Close the dialog
 
 
 class MainWindow(QMainWindow):
@@ -136,6 +266,11 @@ class MainWindow(QMainWindow):
         self.storedVolume = 0
         self.currentMediaLocation = None
         self.currentMediaLength = 0 # Length is in Milli Seconds
+
+        # Start the playback time thread
+        self.playback_time_thread = PlaybackTimeThread(self.media_player)
+        self.playback_time_thread.playback_time_signal.connect(self.force_update)
+        self.playback_time_thread.start()
 
         # Connect VLC events
         # 1. When Media Ended.
@@ -196,16 +331,16 @@ class MainWindow(QMainWindow):
         self.ui.label_4.setText("00:00")
         self.ui.label_7.setText("00:00")
         self.play_video()
-        QTimer.singleShot(1000, self.force_update)
 
-    def force_update(self):
+
+    def force_update(self, seconds):
         """Forces an update to the slider and labels after opening a file."""
         total_length = self.media_player.get_length() // 1000
 
         # Set The Media Time In Variable
         self.currentMediaLength = total_length * 1000
 
-        current_time = self.media_player.get_time() // 1000
+        current_time = seconds
         if total_length > 0:
             self.update_total_length(total_length)
         if current_time >= 0:
@@ -306,7 +441,7 @@ class MainWindow(QMainWindow):
                 # Set the new position
                 self.media_player.set_time(new_position)
             except Exception as e:
-                print(f"Error while seeking media: {e}")
+                self.errorHandler(e)
 
     # # Mouse Click Logic
     def handle_slider_click(self, event):
@@ -349,6 +484,10 @@ class MainWindow(QMainWindow):
             (drag_pos / slider_rect.width()) * (slider.maximum() - slider.minimum())
             + slider.minimum()
         )
+
+        # Check If In Range
+        new_value = max(0, min(new_value, self.currentMediaLength))
+
         slider.setValue(int(new_value))
         self.media_player.set_time(int(new_value) * 1000)
 
@@ -436,6 +575,30 @@ class MainWindow(QMainWindow):
         self.ui.caption_btn.setIcon(QIcon("icons/ui_files/caption.png"))
         self.ui.expand_btn.setIcon(QIcon("icons/ui_files/expand.png"))
         self.ui.repeat_btn.setIcon(QIcon("icons/ui_files/repeat.png"))
+
+    def errorHandler(self, errorMsg):
+        error = QMessageBox(self)
+
+        error.setWindowTitle("An Error Occurred.")
+        error.setText(errorMsg)
+        error.setIcon(QMessageBox.Icon.Critical)
+
+        # Add custom buttons
+        quit_button = QPushButton("Quit")
+        ignore_button = QPushButton("Ignore")
+
+        # Add the custom buttons to the QMessageBox
+        error.addButton(quit_button, QMessageBox.ButtonRole.RejectRole)
+        error.addButton(ignore_button, QMessageBox.ButtonRole.ActionRole)
+
+        # Execute the dialog
+        errorDiag = error.exec()
+
+        # Handle the button clicks
+        if error.clickedButton() == quit_button:
+            self.close()  # Close the application
+        else:
+            error.close()  # Close the dialog
 
     @staticmethod
     def format_time(seconds):
