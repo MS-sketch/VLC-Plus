@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>948</width>
-    <height>631</height>
+    <width>1163</width>
+    <height>818</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,21 +20,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
-    <property name="spacing">
-     <number>0</number>
-    </property>
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="styleSheet">
@@ -904,7 +889,7 @@ QScrollBar::add-page, QScrollBar::sub-page {
                                 <rect>
                                  <x>0</x>
                                  <y>0</y>
-                                 <width>162</width>
+                                 <width>172</width>
                                  <height>484</height>
                                 </rect>
                                </property>
@@ -1441,346 +1426,858 @@ QPushButton#localhost:disabled {
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
-         <widget class="QFrame" name="frame_6">
-          <property name="frameShape">
-           <enum>QFrame::Shape::StyledPanel</enum>
+         <widget class="QOpenGLWidget" name="widget_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Shadow::Raised</enum>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_8">
-           <item>
-            <widget class="QWidget" name="widget_2" native="true"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QFrame" name="frame_7">
-          <property name="maximumSize">
+          <property name="minimumSize">
            <size>
-            <width>16777215</width>
-            <height>150</height>
+            <width>0</width>
+            <height>0</height>
            </size>
           </property>
-          <property name="frameShape">
-           <enum>QFrame::Shape::StyledPanel</enum>
+          <property name="contextMenuPolicy">
+           <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Shadow::Raised</enum>
+          <property name="toolTip">
+           <string notr="true"/>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_14">
-           <item>
-            <widget class="QFrame" name="frame_10">
-             <property name="frameShape">
-              <enum>QFrame::Shape::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Shadow::Raised</enum>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_10">
-              <item>
-               <widget class="QLabel" name="label_4">
-                <property name="font">
-                 <font>
-                  <pointsize>11</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>--:--</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="horizontalSlider">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>18</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QSlider {
-        background: #f0f0f0;  /* Light grey background, almost white */
-        height: 6px;  /* Slightly thinner slider */
-        border-radius: 6px;  /* Less rounded edges for the whole slider */
-    }
-
-    QSlider::groove:horizontal {
-        border: none;
-        background: #e0e0e0;  /* Light grey groove */
-        height: 6px;
-        border-radius: 6px;  /* Less curved ends for the groove */
-    }
-
-    QSlider::sub-page:horizontal {
-        background: #d0d0d0;  /* Slightly darker grey for the filled part */
-        border-radius: 6px;  /* Less curved ends for the filled part */
-    }
-
-    QSlider::add-page:horizontal {
-        background: #e0e0e0;  /* Same light grey for the unfilled part */
-        border-radius: 6px;  /* Less curved ends for the unfilled part */
-    }
-
-    QSlider::handle:horizontal {
-        background: #ffffff;  /* White handle */
-        border: 2px solid #b0b0b0;  /* Grey border around the handle */
-        width: 14px;  /* Smaller width for the handle */
-        height: 14px;  /* Smaller height for the handle */
-        border-radius: 7px;  /* Circular handle with less curve */
-        margin-top: -5px;  /* Adjust handle to be vertically centered */
-        margin-bottom: -5px;
-    }
-
-    QSlider::handle:horizontal:hover {
-        background: #f8f8f8;  /* Slightly lighter background when hovered */
-        border: 2px solid #a0a0a0;  /* Darker border when hovered */
-    }
-
-    QSlider::handle:horizontal:active {
-        background: #f8f8f8;  /* Lighter background when clicked */
-        border: 2px solid #a0a0a0;  /* Darker border when clicked */
-    }</string>
-                </property>
-                <property name="minimum">
-                 <number>7</number>
-                </property>
-                <property name="maximum">
-                 <number>100</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_7">
-                <property name="font">
-                 <font>
-                  <pointsize>11</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>--:--</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QFrame" name="frame_11">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>60</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Shape::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Shadow::Raised</enum>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_11">
-              <item>
-               <widget class="QPushButton" name="pushButton">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_2">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_3">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_4">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_5">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>70</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_6">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_7">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_8">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_9">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="logo_2">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">#logo {
-    padding: 5px;
-    color: #rgb(255, 255, 255);
-    text-align: center;
-    background: #rgb(255, 255, 255);  /* Removes the background */
-    border: #rgb(255, 255, 255);      /* Removes the border */
-}
-
-#logo:disabled {
-    padding: 5px;
-    color: #rgb(255, 255, 255);
-    text-align: center;
-    background: #rgb(255, 255, 255);  /* Removes the background on disabled state */
-    border: #rgb(255, 255, 255);      /* Removes the border in disabled state */
-}</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset resource="icon.qrc">
-                  <normaloff>:/ui_icons/player.png</normaloff>:/ui_icons/player.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="horizontalSlider_2">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>18</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QSlider {
-        background: #f0f0f0;  /* Light grey background, almost white */
-        height: 6px;  /* Slightly thinner slider */
-        border-radius: 6px;  /* Less rounded edges for the whole slider */
-    }
-
-    QSlider::groove:horizontal {
-        border: none;
-        background: #e0e0e0;  /* Light grey groove */
-        height: 6px;
-        border-radius: 6px;  /* Less curved ends for the groove */
-    }
-
-    QSlider::sub-page:horizontal {
-        background: #d0d0d0;  /* Slightly darker grey for the filled part */
-        border-radius: 6px;  /* Less curved ends for the filled part */
-    }
-
-    QSlider::add-page:horizontal {
-        background: #e0e0e0;  /* Same light grey for the unfilled part */
-        border-radius: 6px;  /* Less curved ends for the unfilled part */
-    }
-
-    QSlider::handle:horizontal {
-        background: #ffffff;  /* White handle */
-        border: 2px solid #b0b0b0;  /* Grey border around the handle */
-        width: 14px;  /* Smaller width for the handle */
-        height: 14px;  /* Smaller height for the handle */
-        border-radius: 7px;  /* Circular handle with less curve */
-        margin-top: -5px;  /* Adjust handle to be vertically centered */
-        margin-bottom: -5px;
-    }
-
-    QSlider::handle:horizontal:hover {
-        background: #f8f8f8;  /* Slightly lighter background when hovered */
-        border: 2px solid #a0a0a0;  /* Darker border when hovered */
-    }
-
-    QSlider::handle:horizontal:active {
-        background: #f8f8f8;  /* Lighter background when clicked */
-        border: 2px solid #a0a0a0;  /* Darker border when clicked */
-    }</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
        </layout>
       </widget>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QFrame" name="frame_10">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>27</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>28</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>--:--</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::TextFormat::PlainText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="horizontalSlider">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QSlider {
+        background: #f0f0f0;  /* Light grey background, almost white */
+        height: 6px;  /* Slightly thinner slider */
+        border-radius: 6px;  /* Less rounded edges for the whole slider */
+    }
+
+    QSlider::groove:horizontal {
+        border: none;
+        background: #e0e0e0;  /* Light grey groove */
+        height: 6px;
+        border-radius: 6px;  /* Less curved ends for the groove */
+    }
+
+    QSlider::sub-page:horizontal {
+        background: #d0d0d0;  /* Slightly darker grey for the filled part */
+        border-radius: 6px;  /* Less curved ends for the filled part */
+    }
+
+    QSlider::add-page:horizontal {
+        background: #e0e0e0;  /* Same light grey for the unfilled part */
+        border-radius: 6px;  /* Less curved ends for the unfilled part */
+    }
+
+    QSlider::handle:horizontal {
+        background: #ffffff;  /* White handle */
+        border: 2px solid #b0b0b0;  /* Grey border around the handle */
+        width: 14px;  /* Smaller width for the handle */
+        height: 14px;  /* Smaller height for the handle */
+        border-radius: 7px;  /* Circular handle with less curve */
+        margin-top: -5px;  /* Adjust handle to be vertically centered */
+        margin-bottom: -5px;
+    }
+
+    QSlider::handle:horizontal:hover {
+        background: #f8f8f8;  /* Slightly lighter background when hovered */
+        border: 2px solid #a0a0a0;  /* Darker border when hovered */
+    }
+
+    QSlider::handle:horizontal:active {
+        background: #f8f8f8;  /* Lighter background when clicked */
+        border: 2px solid #a0a0a0;  /* Darker border when clicked */
+    }</string>
+         </property>
+         <property name="minimum">
+          <number>7</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>28</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>--:--</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QFrame" name="frame_11">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>38</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QPushButton" name="play_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#play_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#play_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/play.png</normaloff>:/ui_icons/play.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_10">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Policy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>10</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="previous_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#previous_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#previous_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/back.png</normaloff>:/ui_icons/back.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="stop_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#stop_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#stop_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/stop-button.png</normaloff>:/ui_icons/stop-button.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="next_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#next_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#next_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/next.png</normaloff>:/ui_icons/next.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_12">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Policy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>10</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="rewind_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#rewind_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#rewind_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/icons/rewind.png</normaloff>:/icons/rewind.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="fastforward_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#fastforward_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#fastforward_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/fast-forward.png</normaloff>:/ui_icons/fast-forward.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_11">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Policy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>10</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="home_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#home_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#home_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/video.png</normaloff>:/ui_icons/video.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_13">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Policy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>10</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="eq_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#eq_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#eq_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/eq.png</normaloff>:/ui_icons/eq.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>70</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Policy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>5</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="caption_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#caption_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#caption_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/caption.png</normaloff>:/ui_icons/caption.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="expand_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#expand_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#expand_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/expand.png</normaloff>:/ui_icons/expand.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="repeat_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#repeat_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#repeat_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/repeat.png</normaloff>:/ui_icons/repeat.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_9">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="sound_btn">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#sound_btn {
+    background: transparent;  /* Makes the background fully transparent */
+    border: none;            /* Removes the border completely */
+    color: rgb(255, 255, 255); /* Sets the text color (white in this case) */
+    padding: 5px;            /* Adds padding */
+    text-align: center;      /* Centers the text */
+}
+
+#sound_btn:disabled {
+    background: transparent; /* Keeps the background transparent when disabled */
+    border: none;            /* Ensures no border when disabled */
+    color: rgb(255, 255, 255); /* Text color remains white in the disabled state */
+    text-align: center;      /* Centers the text */
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icon.qrc">
+           <normaloff>:/ui_icons/high-volume.png</normaloff>:/ui_icons/high-volume.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="horizontalSlider_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QSlider {
+        background: #f0f0f0;  /* Light grey background, almost white */
+        height: 6px;  /* Slightly thinner slider */
+        border-radius: 6px;  /* Less rounded edges for the whole slider */
+    }
+
+    QSlider::groove:horizontal {
+        border: none;
+        background: #e0e0e0;  /* Light grey groove */
+        height: 6px;
+        border-radius: 6px;  /* Less curved ends for the groove */
+    }
+
+    QSlider::sub-page:horizontal {
+        background: #d0d0d0;  /* Slightly darker grey for the filled part */
+        border-radius: 6px;  /* Less curved ends for the filled part */
+    }
+
+    QSlider::add-page:horizontal {
+        background: #e0e0e0;  /* Same light grey for the unfilled part */
+        border-radius: 6px;  /* Less curved ends for the unfilled part */
+    }
+
+    QSlider::handle:horizontal {
+        background: #ffffff;  /* White handle */
+        border: 2px solid #b0b0b0;  /* Grey border around the handle */
+        width: 14px;  /* Smaller width for the handle */
+        height: 14px;  /* Smaller height for the handle */
+        border-radius: 7px;  /* Circular handle with less curve */
+        margin-top: -5px;  /* Adjust handle to be vertically centered */
+        margin-bottom: -5px;
+    }
+
+    QSlider::handle:horizontal:hover {
+        background: #f8f8f8;  /* Slightly lighter background when hovered */
+        border: 2px solid #a0a0a0;  /* Darker border when hovered */
+    }
+
+    QSlider::handle:horizontal:active {
+        background: #f8f8f8;  /* Lighter background when clicked */
+        border: 2px solid #a0a0a0;  /* Darker border when clicked */
+    }</string>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>75</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

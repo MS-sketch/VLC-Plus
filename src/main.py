@@ -238,6 +238,7 @@ class CleanupThread(QThread):
 
 
 class MainWindow(QMainWindow):
+
     def __init__(self):
         super().__init__()
 
@@ -276,6 +277,7 @@ class MainWindow(QMainWindow):
 
         # Disable buttons initially
         self.ui.play_btn.setDisabled(True)
+        self.ui.horizontalSlider.setDisabled(True)
 
         # Start the video thread right away
         self.video_thread.start()
@@ -336,8 +338,7 @@ class MainWindow(QMainWindow):
             self.file_loader_thread = FileLoaderThread(file_name, self.media_player, self.instance)
             self.file_loader_thread.file_loaded_signal.connect(self.on_file_loaded)
             self.file_loader_thread.start()
-            self.ui.play_btn.setEnabled(True)
-            self.ui.play_btn.setIcon(QIcon("icons/ui_files/pause.png"))
+            self.enablePlay()
 
     def playORpause(self):
         """Toggles play/pause state of the video."""
@@ -352,7 +353,13 @@ class MainWindow(QMainWindow):
     def disablePlay(self):
         self.ui.play_btn.setIcon(QIcon("icons/ui_files/play.png"))
         self.ui.play_btn.setDisabled(True)
+        self.ui.horizontalSlider.setDisabled(True)
         self.media_player.stop()
+
+    def enablePlay(self):
+        self.ui.play_btn.setEnabled(True)
+        self.ui.horizontalSlider.setEnabled(True)
+        self.ui.play_btn.setIcon(QIcon("icons/ui_files/pause.png"))
 
     def on_file_loaded(self, file_name):
         """Called once the media file is loaded."""
@@ -409,22 +416,11 @@ class MainWindow(QMainWindow):
         for url in event.mimeData().urls():
             file_path = url.toLocalFile()
             if os.path.isfile(file_path):  # Ensure it's a valid file
-                self.play_dropped_file(file_path)
+                self.load_media(file_path)
+                self.currentMediaLocation = file_path
                 break  # Handle only the first file for now
             else:
                 event.ignore()
-
-    def play_dropped_file(self, file_path):
-        """Play the dropped media file."""
-        try:
-            # Start the file loading thread to load the media
-            self.file_loader_thread = FileLoaderThread(file_path, self.media_player, self.instance)
-            self.file_loader_thread.file_loaded_signal.connect(self.on_file_loaded)
-            self.file_loader_thread.start()
-            self.ui.play_btn.setEnabled(True)
-            self.ui.play_btn.setIcon(QIcon("icons/ui_files/pause.png"))
-        except Exception as e:
-            self.errorHandler(f"Error playing dropped file: {e}")
 
     # Slider Logic.
 
@@ -470,6 +466,7 @@ class MainWindow(QMainWindow):
                     else:
                         # Otherwise, jump to the clicked position on the slider
                         self.handle_slider_click(event)
+                        self.slider_dragging = False
                         return True
 
                 elif event.type() == QMouseEvent.Type.MouseButtonRelease:
@@ -570,16 +567,23 @@ class MainWindow(QMainWindow):
     def handle_slider_drag(self, event):
         """Handle dragging of the slider handle."""
         slider = self.ui.horizontalSlider
-        drag_pos = event.position().x()
+        drag_pos_x = event.position().x()
+        drag_pos_y = event.position().y()
         slider_rect = slider.geometry()
+
+        # Check vertical position of the cursor
+        slider_center_y = slider_rect.center().y()  # Get the center y-coordinate of the slider
+        if abs(drag_pos_y - slider_center_y) > 50:
+            # Ignore if the mouse cursor is more than ±50px in the y-axis
+            return
 
         # Calculate new slider value
         new_value = (
-            (drag_pos / slider_rect.width()) * (slider.maximum() - slider.minimum())
-            + slider.minimum()
+                (drag_pos_x / slider_rect.width()) * (slider.maximum() - slider.minimum())
+                + slider.minimum()
         )
 
-        # Check If In Range
+        # Check if the value is in range
         new_value = max(0, min(new_value, self.currentMediaLength))
 
         slider.setValue(int(new_value))
